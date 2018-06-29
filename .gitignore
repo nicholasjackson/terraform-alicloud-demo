@@ -1,4 +1,5 @@
 .terraform/plugins
+.terraform/environment
 terraform.tfstate
 terraform.tfstate.backup
 .envrc
