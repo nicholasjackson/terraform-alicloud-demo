@@ -21,7 +21,7 @@ jobs:
             - plan/
             - .terraform
 
-  apply-manual:
+  apply-manual: &apply
     docker:
       - image: nicholasjackson/hashicorp-ci:latest
     steps:
@@ -33,6 +33,9 @@ jobs:
           command: |
             cp -R /tmp/workspace/.terraform .
             terraform apply /tmp/workspace/plan/${CIRCLE_BRANCH}.out
+  
+  apply-auto:
+    <<: *apply
 
 workflows:
   version: 2
