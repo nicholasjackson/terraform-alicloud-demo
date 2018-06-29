@@ -19,7 +19,7 @@ data "alicloud_instance_types" "2c4g" {
 }
 
 resource "alicloud_vpc" "vpc" {
-  name       = "tf_test_foo"
+  name       = "tf_test_foo-${terraform.workspace}"
   cidr_block = "172.16.0.0/12"
 }
 
@@ -45,6 +45,6 @@ resource "alicloud_instance" "web" {
   instance_type        = "${data.alicloud_instance_types.2c4g.instance_types.0.id}"
   system_disk_category = "cloud_efficiency"
   security_groups      = ["${alicloud_security_group.default.id}"]
-  instance_name        = "web"
+  instance_name        = "${terraform.workspace}-web"
   vswitch_id           = "${alicloud_vswitch.vsw.id}"
 }
