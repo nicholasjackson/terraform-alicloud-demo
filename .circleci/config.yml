@@ -63,9 +63,9 @@ workflows:
             - plan
           filters:
             tags:
-              only: /^master/
+              only: /dev/
             branches:
-              only: /^master/
+              only: /dev/
 
       - apply-manual:
           requires:

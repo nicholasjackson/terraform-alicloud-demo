@@ -25,7 +25,7 @@ resource "alicloud_vpc" "vpc" {
 
 # Create security group
 resource "alicloud_security_group" "default" {
-  name        = "default"
+  name        = "default-${terraform.workspace}"
   description = "default"
   vpc_id      = "${alicloud_vpc.vpc.id}"
 }
