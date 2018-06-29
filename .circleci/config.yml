@@ -51,15 +51,24 @@ workflows:
            - plan
           filters:
             tags:
-              only: /.*/
+              only: /master/
             branches:
-              only: /.*/
+              only: /master/
+
+      - apply-auto:
+          requires:
+            - plan
+          filters:
+            tags:
+              only: /^master/
+            branches:
+              only: /^master/
 
       - apply-manual:
           requires:
             - hold
           filters:
             tags:
-              only: /.*/
+              only: /master/
             branches:
-              only: /.*/
+              only: /master/
