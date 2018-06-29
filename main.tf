@@ -14,8 +14,8 @@ terraform {
 }
 
 data "alicloud_instance_types" "2c4g" {
-  cpu_core_count = 2
-  memory_size    = 4
+  cpu_core_count = 1
+  memory_size    = 1
 }
 
 resource "alicloud_vpc" "vpc" {
