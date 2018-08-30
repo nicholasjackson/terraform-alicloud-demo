@@ -3,9 +3,13 @@ output "private_key" {
 }
 
 output "jumpbox_public_ip" {
-  value = "${alicloud_instance.jumpbox.public_ip}"
+  value = "${alicloud_instance.bastion.public_ip}"
 }
 
 output "web_public_ip" {
   value = "${alicloud_slb.gophersearch-frontend.address}"
+}
+
+output "web_host" {
+  value = "${dnsimple_record.gophersearch.0.name}"
 }

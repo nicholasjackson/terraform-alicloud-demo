@@ -5,6 +5,7 @@ data "alicloud_images" "gophersearch" {
   most_recent = true
 }
 
+# Fetch the instance types for our criteria
 data "alicloud_instance_types" "2c4g" {
   cpu_core_count = 1
   memory_size    = 1
@@ -21,7 +22,7 @@ resource "alicloud_instance" "web" {
   instance_type        = "${data.alicloud_instance_types.2c4g.instance_types.0.id}"
   system_disk_category = "cloud_efficiency"
   security_groups      = ["${alicloud_security_group.default.id}"]
-  instance_name        = "${terraform.workspace}-web-${count.index}"
+  instance_name        = "${local.prefix}-web-${count.index}"
   vswitch_id           = "${alicloud_vswitch.vsw.id}"
   key_name             = "${alicloud_key_pair.publickey.key_name}"
 }
@@ -46,7 +47,7 @@ resource "null_resource" "web_config" {
     private_key = "${tls_private_key.server.private_key_pem}"
 
     #SSH is not accessible from the public internet for web hosts connect via the jumpbox
-    bastion_host        = "${alicloud_instance.jumpbox.public_ip}"
+    bastion_host        = "${alicloud_instance.bastion.public_ip}"
     bastion_user        = "root"
     bastion_private_key = "${tls_private_key.server.private_key_pem}"
   }
@@ -68,14 +69,16 @@ EOF
   }
 }
 
+# Create a public loadbalancer for the web instances
 resource "alicloud_slb" "gophersearch-frontend" {
-  name                 = "gophersearch-frontend"
+  name                 = "${local.prefix}-gophersearch-frontend"
   internet             = true
   internet_charge_type = "paybytraffic"
   bandwidth            = 25
   vswitch_id           = "${alicloud_vswitch.vsw.id}"
 }
 
+# Define a listener for the load balancer and create a health check 
 resource "alicloud_slb_listener" "gophersearch-http" {
   load_balancer_id = "${alicloud_slb.gophersearch-frontend.id}"
   backend_port     = 3000
@@ -88,6 +91,7 @@ resource "alicloud_slb_listener" "gophersearch-http" {
   health_check_connect_port = 3000
 }
 
+# Attach all web instances to the load balancer
 resource "alicloud_slb_attachment" "gophersearch" {
   load_balancer_id = "${alicloud_slb.gophersearch-frontend.id}"
   instance_ids     = ["${alicloud_instance.web.*.id}"]

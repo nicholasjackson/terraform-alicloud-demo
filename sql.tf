@@ -14,10 +14,10 @@ resource "alicloud_db_instance" "gophersearch" {
   instance_storage = "10"
   vswitch_id       = "${alicloud_vswitch.vsw.id}"
 
-  # Only allow traffic from our jumpbox and web server
+  # Only allow traffic from our bastion host and web server
   security_ips = [
     "${alicloud_instance.web.*.private_ip}",
-    "${alicloud_instance.jumpbox.private_ip}",
+    "${alicloud_instance.bastion.private_ip}",
   ]
 }
 
@@ -36,7 +36,7 @@ resource "null_resource" "db_provision" {
   }
 
   connection {
-    host        = "${alicloud_instance.jumpbox.public_ip}"
+    host        = "${alicloud_instance.bastion.public_ip}"
     user        = "root"
     private_key = "${tls_private_key.server.private_key_pem}"
   }

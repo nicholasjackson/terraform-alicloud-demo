@@ -1,5 +1,6 @@
 variable "availability_zones" {
-  default = ["eu-central-1a", "eu-central-1b"]
+  description = "Availability Zones to deploy resources to"
+  default     = ["eu-central-1a", "eu-central-1b"]
 }
 
 variable "web_instance_count" {
@@ -8,5 +9,16 @@ variable "web_instance_count" {
 }
 
 variable "db_user" {
-  default = "gophersearch"
+  description = "Database username"
+  default     = "gophersearch"
+}
+
+variable "dnsimple_tld" {
+  description = "Top level domain name for DNSimple domain"
+  default     = "demo.gs"
+}
+
+variable "dnsimple_enabled" {
+  description = "Enable DNS entry for DNSimple"
+  default     = 1
 }

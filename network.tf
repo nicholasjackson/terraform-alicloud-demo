@@ -1,11 +1,11 @@
 resource "alicloud_vpc" "vpc" {
-  name       = "gopher_search_${terraform.workspace}"
+  name       = "${local.prefix}-vpc-gophersearch"
   cidr_block = "172.16.0.0/12"
 }
 
 # Create security group
 resource "alicloud_security_group" "default" {
-  name        = "default-${terraform.workspace}"
+  name        = "${local.prefix}-sg-gophersearch"
   description = "default"
   vpc_id      = "${alicloud_vpc.vpc.id}"
 }
