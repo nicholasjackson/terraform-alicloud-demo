@@ -1,0 +1,27 @@
+{
+  "variables": {
+    "access_key": "{{env `ALICLOUD_ACCESS_KEY`}}",
+    "secret_key": "{{env `ALICLOUD_SECRET_KEY`}}"
+  },
+  "builders": [
+    {
+      "type": "alicloud-ecs",
+      "access_key": "{{user `access_key`}}",
+      "secret_key": "{{user `secret_key`}}",
+      "region": "eu-central-1",
+      "image_name": "jumpbox",
+      "source_image": "ubuntu_16_0402_64_20G_alibase_20180409.vhd",
+      "ssh_username": "root",
+      "instance_type": "ecs.t5-lc1m1.small",
+      "internet_charge_type": "PayByTraffic",
+      "io_optimized": "true",
+      "image_force_delete": "true"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "./scripts/jumpbox_install.sh"
+    }
+  ]
+}

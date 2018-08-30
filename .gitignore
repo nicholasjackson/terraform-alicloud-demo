@@ -1,6 +1,7 @@
-.terraform/plugins
-.terraform/environment
-.terraform/modules
+.terraform
+.terraform
+.terraform
 terraform.tfstate
 terraform.tfstate.backup
 .envrc
+private_key

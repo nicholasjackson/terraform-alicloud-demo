@@ -1,5 +1,14 @@
 # Simple Terraform example to create and manage resources in a collaborative approach in Alibaba Cloud
 
+## Images
+The Terraform configuration inside this repository requires two images to have been created in your Alibaba cloud account.  To create these images run:
+
+```
+$ cd packer
+$ packer build gopher-search.json
+$ packer build jumpbox.json
+```
+
 ## Remote State
 By default Terraform stores the statefile locally on the machine from where the `terraform apply` command was run.  This poses a problem when attempting to run Terraform in a CI or collaborative environment.  To solve this problem Terraform has a feature called [Remote State](https://www.terraform.io/docs/state/remote.html).  
 
