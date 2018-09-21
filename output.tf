@@ -9,7 +9,3 @@ output "jumpbox_public_ip" {
 output "web_public_ip" {
   value = "${alicloud_slb.gophersearch-frontend.address}"
 }
-
-output "web_host" {
-  value = "${dnsimple_record.gophersearch.0.name}"
-}

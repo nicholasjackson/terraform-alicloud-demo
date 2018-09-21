@@ -1,4 +1,5 @@
 # Create a DNSimple record and point to the load balancer
+/*
 resource "dnsimple_record" "gophersearch" {
   count = "${var.dnsimple_enabled}"
 
@@ -8,3 +9,5 @@ resource "dnsimple_record" "gophersearch" {
   type   = "A"
   ttl    = 3600
 }
+*/
+
