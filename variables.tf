@@ -5,7 +5,7 @@ variable "availability_zones" {
 
 variable "web_instance_count" {
   description = "The number of web instances to create"
-  default     = 1
+  default     = 2
 }
 
 variable "db_user" {

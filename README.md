@@ -6,7 +6,7 @@ The Terraform configuration inside this repository requires two images to have b
 ```
 $ cd packer
 $ packer build gopher-search.json
-$ packer build jumpbox.json
+$ packer build bastion.json
 ```
 
 ## Remote State
@@ -46,4 +46,5 @@ Running `terraform init` will setup the remote state in `OSS` and if a local sta
 ## Workspaces
 State in Terraform by default is global across branches of your configuration, this causes problems when you wish to use a branching approach to manage multiple environments in your infrastructure (dev, test, prod).  To enable multiple environment support we can use a feature of Terraform called [Workspaces](https://www.terraform.io/docs/state/workspaces.html).
 
+## Continuous integration
 The example CI configuration for CircleCI which can be found in the folder [.circleci/config.yml](.circleci/config.yml) takes an approach that the branch name of the repository corresponds to a workspace.  For example should you have a branch `dev` then you would also create a workspace dev `terraform workspace new dev`.  This ensures that changes to the configuration made in the `dev` branch does not modify the infrastructure related to the `master` branch which would happen if workspaces were not used.

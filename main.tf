@@ -1,5 +1,6 @@
 provider "alicloud" {}
 
+/*
 # Configure backend to use Alicloud Object Storage
 # We are using the S3 backend as Alicloud Object Store is S3 API compatable
 terraform {
@@ -17,6 +18,7 @@ terraform {
     skip_metadata_api_check     = true
   }
 }
+*/
 
 # Generate a private key pair for access to servers
 # Note: this key is persisted to terraform state
