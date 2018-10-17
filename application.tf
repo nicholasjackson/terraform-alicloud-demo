@@ -7,8 +7,8 @@ data "alicloud_images" "gophersearch" {
 
 # Fetch the instance types for our criteria
 data "alicloud_instance_types" "2c4g" {
-  cpu_core_count = 1
-  memory_size    = 1
+  cpu_core_count = 2
+  memory_size    = 2
 }
 
 # Create a web instance for the GopherSearch application
